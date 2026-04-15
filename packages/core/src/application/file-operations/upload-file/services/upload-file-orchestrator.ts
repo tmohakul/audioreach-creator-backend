@@ -50,6 +50,7 @@ export interface OrchestratorResult {
 export class UploadFileOrchestrator {
   private issueCollector: IssueCollector = new IssueCollector();
   private builderService: EntityBuilderService;
+  private entitySystemIdService: EntitySystemIdService;
   private acdbParser: AcdbFileOrchestrator;
   private awspParser: AwspFileOrchestrator;
   private foreignKeyMapper: ForeignKeyMapper;
@@ -111,7 +112,7 @@ export class UploadFileOrchestrator {
 
   /**
    * Log entity building performance metrics with throughput calculation
-   */
+
   private logEntityBuildMetrics(
     metrics: PerformanceMetrics | undefined,
     entityCount: number,
@@ -137,7 +138,7 @@ export class UploadFileOrchestrator {
 
   /**
    * Log entity insertion performance metrics with success rates
-   */
+
   private logEntityInsertMetrics(
     metrics: PerformanceMetrics | undefined,
     entityCount: number,
@@ -160,6 +161,7 @@ export class UploadFileOrchestrator {
       tag: 'profiling-metrics',
     });
   }
+*/
 
   /**
    * Log memory snapshots from profiler
@@ -279,6 +281,8 @@ export class UploadFileOrchestrator {
       // Phase 1a: Build and Insert Key Definitions (no dependencies)
       await this.buildAndInsertKeyDefinitions(bulkRepo);
 
+      //eslint-disable-next-line sonarjs/no-commented-code
+      /*
       // Phase 1b: Build and Insert SPF Module Definitions (no dependencies)
       await this.buildAndInsertSpfModuleDefinitions(bulkRepo);
 
@@ -299,6 +303,7 @@ export class UploadFileOrchestrator {
 
       // Phase 7: Build and Insert Usecases (depend on all value definitions)
       await this.buildAndInsertUsecases(bulkRepo);
+*/
     } catch (error) {
       // Log persistence errors
       this.logger?.logError({
@@ -353,8 +358,10 @@ export class UploadFileOrchestrator {
     // Build key definitions with system IDs assigned
     const result = await this.builderService.buildKeyDefinitions(
       this.parsedAwsp!,
-      this.currentFileId,
     );
+
+    // Collect build issues
+    this.issueCollector.addIssues(result.issues);
 
     // Collect build issues
     this.issueCollector.addIssues(result.issues);
@@ -418,7 +425,7 @@ export class UploadFileOrchestrator {
 
   /**
    * Phase 1b: Build and Insert SPF Module Definitions
-   */
+
   private async buildAndInsertSpfModuleDefinitions(
     bulkRepo: BulkImportRepository,
   ): Promise<void> {
@@ -460,7 +467,7 @@ export class UploadFileOrchestrator {
 
   /**
    * Phase 2: Build and Insert Subgraphs
-   */
+
   private async buildAndInsertSubgraphs(
     bulkRepo: BulkImportRepository,
   ): Promise<void> {
@@ -492,7 +499,7 @@ export class UploadFileOrchestrator {
 
   /**
    * Phase 3: Build and Insert Containers
-   */
+
   private async buildAndInsertContainers(
     bulkRepo: BulkImportRepository,
   ): Promise<void> {
@@ -524,7 +531,7 @@ export class UploadFileOrchestrator {
 
   /**
    * Phase 4: Build and Insert SPF Modules
-   */
+
   private async buildAndInsertSpfModules(
     bulkRepo: BulkImportRepository,
   ): Promise<void> {
@@ -573,7 +580,7 @@ export class UploadFileOrchestrator {
 
   /**
    * Phase 5: Build and Insert Data Links
-   */
+
   private async buildAndInsertDataLinks(
     bulkRepo: BulkImportRepository,
   ): Promise<void> {
@@ -618,7 +625,7 @@ export class UploadFileOrchestrator {
 
   /**
    * Phase 6: Build and Insert Control Links
-   */
+
   private async buildAndInsertControlLinks(
     bulkRepo: BulkImportRepository,
   ): Promise<void> {
@@ -690,7 +697,7 @@ export class UploadFileOrchestrator {
 
   /**
    * Phase 7: Build and Insert Usecases
-   */
+
   private async buildAndInsertUsecases(
     bulkRepo: BulkImportRepository,
   ): Promise<void> {
@@ -731,5 +738,5 @@ export class UploadFileOrchestrator {
         timestamp: new Date(),
       });
     }
-  }
+  }*/
 }

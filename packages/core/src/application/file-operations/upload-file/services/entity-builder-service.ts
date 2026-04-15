@@ -35,6 +35,7 @@ import type {Logger} from '../../../../shared/types/logger.interface.js';
 import type {ForeignKeyMapper} from './foreign-key-mapper.js';
 import type {DynamicControlPortInfo} from './entity-builders/spf-module-builder.js';
 import type {BuildResult} from '../types/issue-collection.js';
+import type {BuildResult} from '../types/issue-collection.js';
 
 /**
  * Constants for entity model keys used by EntityBuilderService
@@ -659,6 +660,13 @@ export class EntityBuilderService {
         errorCount: 0,
         warningCount: 0,
       };
+      return {
+        entities: [],
+        issues: [],
+        successCount: 0,
+        errorCount: 0,
+        warningCount: 0,
+      };
     }
 
     // Build domain key definitions with system IDs assigned
@@ -675,6 +683,7 @@ export class EntityBuilderService {
       timestamp: new Date(),
     });
 
+    return result;
     return result;
   }
 
