@@ -50,7 +50,6 @@ export interface OrchestratorResult {
 export class UploadFileOrchestrator {
   private issueCollector: IssueCollector = new IssueCollector();
   private builderService: EntityBuilderService;
-  private entitySystemIdService: EntitySystemIdService;
   private acdbParser: AcdbFileOrchestrator;
   private awspParser: AwspFileOrchestrator;
   private foreignKeyMapper: ForeignKeyMapper;
@@ -281,11 +280,11 @@ export class UploadFileOrchestrator {
       // Phase 1a: Build and Insert Key Definitions (no dependencies)
       await this.buildAndInsertKeyDefinitions(bulkRepo);
 
-      //eslint-disable-next-line sonarjs/no-commented-code
-      /*
       // Phase 1b: Build and Insert SPF Module Definitions (no dependencies)
       await this.buildAndInsertSpfModuleDefinitions(bulkRepo);
 
+      //eslint-disable-next-line sonarjs/no-commented-code
+      /*
       // Phase 2: Build and Insert Subgraphs (no dependencies)
       await this.buildAndInsertSubgraphs(bulkRepo);
 
@@ -358,6 +357,7 @@ export class UploadFileOrchestrator {
     // Build key definitions with system IDs assigned
     const result = await this.builderService.buildKeyDefinitions(
       this.parsedAwsp!,
+      this.currentFileId,
     );
 
     // Collect build issues
@@ -425,7 +425,7 @@ export class UploadFileOrchestrator {
 
   /**
    * Phase 1b: Build and Insert SPF Module Definitions
-
+   */
   private async buildAndInsertSpfModuleDefinitions(
     bulkRepo: BulkImportRepository,
   ): Promise<void> {
