@@ -111,7 +111,7 @@ export class UploadFileOrchestrator {
 
   /**
    * Log entity building performance metrics with throughput calculation
-
+   */
   private logEntityBuildMetrics(
     metrics: PerformanceMetrics | undefined,
     entityCount: number,
@@ -137,7 +137,7 @@ export class UploadFileOrchestrator {
 
   /**
    * Log entity insertion performance metrics with success rates
-
+   */
   private logEntityInsertMetrics(
     metrics: PerformanceMetrics | undefined,
     entityCount: number,
@@ -160,7 +160,6 @@ export class UploadFileOrchestrator {
       tag: 'profiling-metrics',
     });
   }
-*/
 
   /**
    * Log memory snapshots from profiler
@@ -283,8 +282,6 @@ export class UploadFileOrchestrator {
       // Phase 1b: Build and Insert SPF Module Definitions (no dependencies)
       await this.buildAndInsertSpfModuleDefinitions(bulkRepo);
 
-      //eslint-disable-next-line sonarjs/no-commented-code
-      /*
       // Phase 2: Build and Insert Subgraphs (no dependencies)
       await this.buildAndInsertSubgraphs(bulkRepo);
 
@@ -302,7 +299,6 @@ export class UploadFileOrchestrator {
 
       // Phase 7: Build and Insert Usecases (depend on all value definitions)
       await this.buildAndInsertUsecases(bulkRepo);
-*/
     } catch (error) {
       // Log persistence errors
       this.logger?.logError({
@@ -467,7 +463,7 @@ export class UploadFileOrchestrator {
 
   /**
    * Phase 2: Build and Insert Subgraphs
-
+   */
   private async buildAndInsertSubgraphs(
     bulkRepo: BulkImportRepository,
   ): Promise<void> {
@@ -499,7 +495,7 @@ export class UploadFileOrchestrator {
 
   /**
    * Phase 3: Build and Insert Containers
-
+   */
   private async buildAndInsertContainers(
     bulkRepo: BulkImportRepository,
   ): Promise<void> {
@@ -531,7 +527,7 @@ export class UploadFileOrchestrator {
 
   /**
    * Phase 4: Build and Insert SPF Modules
-
+   */
   private async buildAndInsertSpfModules(
     bulkRepo: BulkImportRepository,
   ): Promise<void> {
@@ -580,7 +576,7 @@ export class UploadFileOrchestrator {
 
   /**
    * Phase 5: Build and Insert Data Links
-
+   */
   private async buildAndInsertDataLinks(
     bulkRepo: BulkImportRepository,
   ): Promise<void> {
@@ -625,7 +621,7 @@ export class UploadFileOrchestrator {
 
   /**
    * Phase 6: Build and Insert Control Links
-
+   */
   private async buildAndInsertControlLinks(
     bulkRepo: BulkImportRepository,
   ): Promise<void> {
@@ -697,7 +693,7 @@ export class UploadFileOrchestrator {
 
   /**
    * Phase 7: Build and Insert Usecases
-
+   */
   private async buildAndInsertUsecases(
     bulkRepo: BulkImportRepository,
   ): Promise<void> {
@@ -738,5 +734,5 @@ export class UploadFileOrchestrator {
         timestamp: new Date(),
       });
     }
-  }*/
+  }
 }
