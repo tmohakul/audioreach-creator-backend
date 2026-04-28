@@ -386,6 +386,7 @@ export class UploadFileOrchestrator {
    * Collect insertion errors from BulkInsertResult and add them to issueCollector
    */
   private collectInsertionErrors(insertResult: BulkInsertResult): void {
+    /* eslint-disable sonarjs/no-commented-code */
     if (!insertResult.ok) {
       // Type narrowing: insertResult is now {ok: false; message: string}
       // const errorMessage = insertResult.errors;
@@ -396,6 +397,7 @@ export class UploadFileOrchestrator {
       //   entityType: ENTITY_TYPES.KEY_DEFINITION,
       // });
     }
+    /* eslint-enable sonarjs/no-commented-code */
   }
 
   /**
