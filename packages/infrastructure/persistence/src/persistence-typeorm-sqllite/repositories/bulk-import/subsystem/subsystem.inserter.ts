@@ -10,6 +10,7 @@ import type {
   BulkInsertResult,
   DataPort,
   ControlPort,
+  IdGenerationPort,
 } from '@arc/core';
 import {errBulkInsert, okBulkInsert} from '@arc/core';
 import type {BulkInserter} from '../common/bulk-inserter.interface.js';
@@ -25,8 +26,14 @@ import {
 } from '../../../entity-schema/usecase-data/node/node.schema.js';
 import {DataPortSchema} from '../../../entity-schema/usecase-data/node/data-port-info.schema.js';
 import type {DataPortRow} from '../../../entity-schema/usecase-data/node/data-port-info.schema.js';
-import {ControlPortSchema} from '../../../entity-schema/usecase-data/node/control-port.js';
-import type {ControlPortRow} from '../../../entity-schema/usecase-data/node/control-port.js';
+import {
+  ControlPortSchema,
+  IntentSchema,
+} from '../../../entity-schema/usecase-data/node/control-port.js';
+import type {
+  ControlPortRow,
+  IntentRow,
+} from '../../../entity-schema/usecase-data/node/control-port.js';
 import {
   SubsystemSchema,
   type SubsystemRow,
@@ -43,7 +50,10 @@ import {
  *   Node → DataPort → ControlPort → Intent → Subsystem
  */
 export class SubsystemInserter implements BulkInserter<Node> {
-  constructor(private readonly manager: EntityManager) {}
+  constructor(
+    private readonly manager: EntityManager,
+    private readonly idGeneration: IdGenerationPort,
+  ) {}
 
   /**
    * Inserts all Subsystem Node entities and their children in FK-safe order.
